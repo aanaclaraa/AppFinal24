@@ -8,9 +8,8 @@ import { AuthContext } from '../Context/AuthContext';
 import Home from '../Pages/Home';
 import Busca from '../Pages/Busca';
 import Login from '../Pages/Login';
-import Videos from '../Pages/Videos';
-import Perfil from '../Pages/Perfil';
 import Inserir from '../Pages/Inserir';
+import Detalhes from '../Pages/Detalhes';
 
 
 const Tab = createBottomTabNavigator();
@@ -49,7 +48,7 @@ export default function Rotas() {
                     component={Busca}
                     options={{
                         tabBarIcon: ({ color, size }) => (
-                            <MaterialCommunityIcons name="magnify" color={color} size={size} />
+                            <MaterialCommunityIcons name="account-multiple" color={color} size={size} />
                         ),
                     }}
 
@@ -59,25 +58,17 @@ export default function Rotas() {
                     component={Inserir}
                     options={{
                         tabBarIcon: ({ color, size }) => (
+                            <MaterialCommunityIcons name="alarm-light-outline" color={color} size={size} />
+                        ),
+                    }}
+                />
+
+                <Tab.Screen
+                    name="Detalhes"
+                    component={Detalhes}
+                    options={{
+                        tabBarIcon: ({ color, size }) => (
                             <MaterialCommunityIcons name="plus-box" color={color} size={size} />
-                        ),
-                    }}
-                />
-                <Tab.Screen
-                    name="Videos"
-                    component={Videos}
-                    options={{
-                        tabBarIcon: ({ color, size }) => (
-                            <MaterialCommunityIcons name="youtube-tv" color={color} size={size} />
-                        ),
-                    }}
-                />
-                <Tab.Screen
-                    name="Perfil"
-                    component={Perfil}
-                    options={{
-                        tabBarIcon: ({ color, size }) => (
-                            <MaterialCommunityIcons name="account-circle" color={color} size={size} />
                         ),
                     }}
                 />

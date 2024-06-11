@@ -1,60 +1,73 @@
-import { View, Text, StyleSheet, FlatList } from 'react-native'
-import React, { useEffect, useState } from 'react'
-import Produto from '../Components/Produto';
-import Stories from '../Components/Stories';
-
+import React, { useState, useEffect } from 'react';
+import { View, Text, FlatList, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 
 export default function Home() {
+    const [animais, setAnimais] = useState([]);
 
-  const [produtos, setProdutos] = useState([]);
+    useEffect(() => {
+        fetchAnimais();
+    }, []);
 
-  async function getProdutos() {
-    await fetch('https://fakestoreapi.com/products', {
-      method: 'GET',
-      headers: {
-        'content-type': 'application/json'
-      }
-    })
-      .then(res => res.json())
-      .then(json => setProdutos(json))
-      .catch(err => console.log(err))
-  }
+    const fetchAnimais = async () => {
+        try {
+            const response = await fetch('http://10.139.75.28:5251/api/Animal/GetAllAnimal');
+            if (response.ok) {
+                const data = await response.json();
+                setAnimais(data);
+            } else {
+                throw new Error('Erro ao obter animais perdidos');
+            }
+        } catch (error) {
+            console.error('Erro ao obter animais perdidos:', error.message);
+            Alert.alert('Erro', 'Ocorreu um erro ao obter animais perdidos. Por favor, tente novamente.');
+        }
+    };
 
-  useEffect(() => {
-    getProdutos();
-  }, [])
-
-  return (
-    <View style={css.container}>
-      {produtos ?
-        <>
-          <Stories produtos={produtos} />
-          <FlatList
-            data={produtos}
-            renderItem={({ item }) => <Produto title={item.title} price={item.price} image={item.image} description={item.description} category={item.category} rating={item.rating} />}
-            keyExtractor={(item) => item.id}
-            contentContainerStyle={{ height: (produtos.length * 600) + 110 }}
-          />
-        </>
-        :
-        <Text style={css.text}>Carregando produtos...</Text>
-      }
-    </View>
-  )
+    return (
+        <View style={styles.container}>
+            <Text style={styles.title}>STATUS:</Text>
+            <FlatList
+                data={animais}
+                renderItem={({ item }) => (
+                    <TouchableOpacity style={styles.animalItem}>
+                        <Text style={styles.animalName}>{item.nome}</Text>
+                        <Text>Nome: {item.nomeAnimal}</Text>
+                        <Text>Raça: {item.animalRaca}</Text>
+                        <Text>Tipo: {item.animalTipo}</Text>
+                        <Text>Cor: {item.animalCor}</Text>
+                        <Text>Sexo: {item.animalSexo}</Text>
+                        <Text>Data Desaparecimento: {item.animalDtDesaparecimento}</Text>
+                        <Text>Data Encontro: {item.animalDtEncontro}</Text>
+                        <Text>Status: {item.animalStatus}</Text>
+                    </TouchableOpacity>
+                )}
+                keyExtractor={(item) => item.animalId}
+            />
+        </View>
+    );
 }
-const css = StyleSheet.create({
-  container: {
-    backgroundColor: "#191919",
-    flexGrow: 1,
-    color: "white",
-    justifyContent: "center",
-    alignItems: "center"
-  },
-  text: {
-    color: "white"
-  },
-  stories: {
-    width: "100%",
-    height: 100
-  }
-})
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'beige',
+    },
+    title: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        marginBottom: 20,
+    },
+    animalItem: {
+        padding: 10,
+        borderBottomWidth: 1,
+        borderBottomColor: 'gray',
+        width: '100%',
+    },
+    animalName: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        marginBottom: 5,
+    },
+});
