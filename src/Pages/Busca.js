@@ -19,8 +19,9 @@ export default function CadastroUsuario() {
             });
             const data = await response.json();
             if (response.ok) {
-                Alert.alert('Sucesso', 'Usuário cadastrado com sucesso!');
-                navigation.navigate('Home'); 
+                Alert.alert('Sucesso', 'Usuário cadastrado com sucesso!', [
+                    { text: 'OK', onPress: () => navigation.navigate('Home') } // Navegação para a tela Home
+                ]);
             } else {
                 Alert.alert('Erro', data.message || 'Erro ao cadastrar o usuário.');
             }
@@ -37,31 +38,31 @@ export default function CadastroUsuario() {
             </View>
             <Text style={styles.text}>AINDA NÃO SE CADASTROU?</Text>
             <TextInput 
-            style={styles.input} 
-            placeholder="Nome" 
-            value={nome} 
-            onChangeText={setNome} 
+                style={styles.input} 
+                placeholder="Nome" 
+                value={nome} 
+                onChangeText={setNome} 
             />
             <TextInput 
-            style={styles.input}
-            placeholder="Telefone"
-            value={telefone} 
-            onChangeText={setTelefone}
-            keyboardType="phone-pad" 
-               />
-            <TextInput 
-            style={styles.input} 
-            placeholder="Email" 
-            value={email} 
-            onChangeText={setEmail} 
-            keyboardType="email-address" 
+                style={styles.input}
+                placeholder="Telefone"
+                value={telefone} 
+                onChangeText={setTelefone}
+                keyboardType="phone-pad" 
             />
             <TextInput 
-            style={styles.input} 
-            placeholder="Senha" 
-            value={senha} 
-            onChangeText={setSenha} 
-            secureTextEntry={true} 
+                style={styles.input} 
+                placeholder="Email" 
+                value={email} 
+                onChangeText={setEmail} 
+                keyboardType="email-address" 
+            />
+            <TextInput 
+                style={styles.input} 
+                placeholder="Senha" 
+                value={senha} 
+                onChangeText={setSenha} 
+                secureTextEntry={true} 
             />
             <TouchableOpacity style={styles.button} onPress={cadastrarUsuario}>
                 <Text style={styles.buttonText}>Cadastrar</Text>
@@ -71,50 +72,53 @@ export default function CadastroUsuario() {
 }
 
 const styles = StyleSheet.create({
-    container: { 
+    container: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center', 
-        backgroundColor: 'beige'
+        alignItems: 'center',
+        backgroundColor: '#FFFFFF',
+        paddingHorizontal: 20,
     },
     imageContainer: {
-        width: 100,
-        height: 100,
-        borderRadius: 50, 
-        overflow: "hidden",
-        marginBottom: 15
+        width: 120,
+        height: 120,
+        borderRadius: 60,
+        overflow: 'hidden',
+        marginBottom: 30,
     },
     logo: {
-        flex: 1,
-        width: "100%",
-        height: "100%",
-        resizeMode: "cover",
+        width: '100%',
+        height: '100%',
+        resizeMode: 'cover',
     },
-    text: { 
-        fontSize: 20, 
-        marginBottom: 20, 
-        fontWeight: 'bold' 
+    text: {
+        fontSize: 20,
+        marginBottom: 20,
+        fontWeight: 'bold',
+        color: 'black', 
     },
-    input: { 
-        width: '80%', 
-        height: 40, 
-        marginBottom: 20, 
-        borderWidth: 1, 
-        borderColor: 'gray', 
-        borderRadius: 5, 
-        padding: 10 
+    input: {
+        width: '100%',
+        height: 40,
+        marginBottom: 20,
+        borderWidth: 1,
+        borderColor: 'red', 
+        borderRadius: 5,
+        padding: 10,
     },
-    button: { 
-        width: '80%', 
-        height: 40, 
-        backgroundColor: 'green', 
-        justifyContent: 'center', 
-        alignItems: 'center', 
-        borderRadius: 5 
+    button: {
+        width: '100%',
+        height: 40,
+        backgroundColor: 'pink',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 5,
+        borderWidth: 1,
+        borderColor: 'pink', 
     },
-    buttonText: { 
-        color: 'white', 
-        fontSize: 16, 
-        fontWeight: 'bold' 
+    buttonText: {
+        color: 'black', 
+        fontSize: 16,
+        fontWeight: 'bold',
     },
 });

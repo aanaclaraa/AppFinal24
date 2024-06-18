@@ -38,7 +38,7 @@ export default function Inserir() {
                 :
                 <>
 
-                    <Text style={styles.title}>Detalhes</Text>
+                    <Text style={styles.title}>ADICIONAR DETALHES</Text>
 
                     <Text style={styles.label}>Descrição:</Text>
                     <TextInput
@@ -77,27 +77,27 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 20,
-        backgroundColor: 'black',
-        color: 'white'
+        backgroundColor: 'white',
+        color: 'white',
     },
     title: {
         fontSize: 24,
         fontWeight: 'bold',
         marginBottom: 10,
-        color: 'white'
+        color: 'black'
     },
     label: {
         fontSize: 16,
         marginBottom: 5,
-        color: 'white'
+        color: 'black'
     },
     input: {
         borderWidth: 1,
-        borderColor: 'red',
+        borderColor: 'pink',
         borderRadius: 5,
         padding: 10,
         marginBottom: 15,
-        color: 'white'
+        color: 'black'
     },
     btnCadastrar: {
         backgroundColor: 'red',

@@ -73,7 +73,7 @@ const Observacao = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'beige',
+    backgroundColor: 'white',
     padding: 10,
   },
   header: {
