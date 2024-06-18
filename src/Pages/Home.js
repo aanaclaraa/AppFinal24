@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, TouchableOpacity, StyleSheet, Alert, Image } from 'react-native';
-
+import Obs from '../Components/InserirObservacao'
 export default function Home() {
     const [animais, setAnimais] = useState([]);
+    const [detalhes, setDetalhes] = useState(false);
+    const [obs, setObs] = useState(false);
+    const [idAnimal, setIdAnimal] = useState(0);
 
     useEffect(() => {
         fetchAnimais();
@@ -25,17 +28,32 @@ export default function Home() {
 
     const renderAnimalItem = ({ item }) => (
         <TouchableOpacity style={styles.animalItem}>
-            <View>
+            <View style={styles.animalItem}>
                 <Text style={styles.animalName}>{item.nome}</Text>
                 <Text style={styles.animalDetail}>Nome: {item.nomeAnimal}</Text>
                 <Text style={styles.animalDetail}>Raça: {item.animalRaca}</Text>
-                <Text style={styles.animalDetail}>Tipo: {item.animalTipo}</Text>
-                <Text style={styles.animalDetail}>Cor: {item.animalCor}</Text>
-                <Text style={styles.animalDetail}>Sexo: {item.animalSexo}</Text>
-                <Text style={styles.animalDetail}>Data Desaparecimento: {item.animalDtDesaparecimento}</Text>
-                <Text style={styles.animalDetail}>Data Encontro: {item.animalDtEncontro}</Text>
-                <Text style={styles.animalDetail}>Status: {item.animalStatus}</Text>
-            </View>
+                {detalhes && idAnimal == item.animalId &&
+                    <View>
+                        <Text style={styles.animalDetail}>Tipo: {item.animalTipo}</Text>
+                        <Text style={styles.animalDetail}>Cor: {item.animalCor}</Text>
+                        <Text style={styles.animalDetail}>Sexo: {item.animalSexo}</Text>
+                        <Text style={styles.animalDetail}>Data Desaparecimento: {item.animalDtDesaparecimento}</Text>
+                        <Text style={styles.animalDetail}>Data Encontro: {item.animalDtEncontro}</Text>
+                        <Text style={styles.animalDetail}>Status: {item.animalStatus}</Text>
+                    </View>
+                }
+                <TouchableOpacity style={styles.button} onPress={() => { setDetalhes(true); setIdAnimal(item.animalId) }}>
+                    <Text style={styles.buttonText}>DETALHES</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.button} onPress={() => { setObs(true); setIdAnimal(item.animalId);  }}>
+                    <Text style={styles.buttonText}>OBSERVAÇÃO</Text>
+                </TouchableOpacity>
+                {obs &&  idAnimal == item.animalId &&
+                    <View style={styles.Obs}>
+                        <Obs animalId = {item.animalId} usuarioId={item.usuarioId} ></Obs>
+                    </View>                   
+                }
+            </View>           
         </TouchableOpacity>
     );
 
@@ -48,8 +66,8 @@ export default function Home() {
             <FlatList
                 data={animais}
                 renderItem={renderAnimalItem}
-                keyExtractor={(item) => item.animalId.toString()} 
-                contentContainerStyle={styles.flatListContainer} 
+                keyExtractor={(item) => item.animalId.toString()}
+                contentContainerStyle={styles.flatListContainer}
             />
         </View>
     );
@@ -60,8 +78,15 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#FFFFFF', 
+        backgroundColor: '#FFFFFF',
         paddingHorizontal: 20,
+        width:'100%',
+        textAlign: 'center'
+    },
+    Obs:{
+        width:'100%',
+        height: 800,
+        textAlign: 'center',
     },
     imageContainer: {
         width: 150,
@@ -69,14 +94,14 @@ const styles = StyleSheet.create({
         borderRadius: 75,
         overflow: "hidden",
         marginBottom: 20,
-        shadowColor: '#000000', 
+        shadowColor: '#000000',
         shadowOffset: {
             width: 0,
             height: 2,
         },
-        shadowOpacity: 0.3, 
-        shadowRadius: 4, 
-        elevation: 5, 
+        shadowOpacity: 0.3,
+        shadowRadius: 4,
+        elevation: 5,
     },
     logo: {
         flex: 1,
@@ -87,7 +112,7 @@ const styles = StyleSheet.create({
         fontSize: 24,
         fontWeight: 'bold',
         marginBottom: 20,
-        color: '#333333', 
+        color: '#333333',
         textAlign: 'center',
     },
     animalItem: {
@@ -101,23 +126,38 @@ const styles = StyleSheet.create({
             width: 0,
             height: 2,
         },
-        shadowOpacity: 0.2,
-        shadowRadius: 2,
-        elevation: 3,
+        shadowOpacity: 0.1,
+        shadowRadius: 3,
+        elevation: 2,
     },
     animalName: {
-        fontSize: 18,
+        fontSize: 5,
         fontWeight: 'bold',
-        marginBottom: 5,
+        marginBottom: 15,
         color: '#333333',
     },
     animalDetail: {
-        color: 'black', 
+        color: 'black',
         marginBottom: 3,
-        fontSize: 16,
+        fontSize: 15,
     },
     flatListContainer: {
-        paddingBottom: 20,
-        width: '100%', 
+        paddingBottom: 15,
+        width: '103%',
+    },
+    button: {
+        width: '100%',
+        height: 40,
+        backgroundColor: 'pink',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 5,
+        borderWidth: 1,
+        borderColor: 'pink',
+    },
+    buttonText: {
+        color: 'black',
+        fontSize: 16,
+        fontWeight: 'bold',
     },
 });

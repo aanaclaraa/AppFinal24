@@ -9,8 +9,6 @@ import Home from '../Pages/Home';
 import Busca from '../Pages/Busca';
 import Login from '../Pages/Login';
 import Inserir from '../Pages/Inserir';
-import Observacao from '../Pages/Observacao';
-import Detalhes from '../Pages/Detalhes';
 
 
 const Tab = createBottomTabNavigator();
@@ -62,26 +60,7 @@ export default function Rotas() {
                             <MaterialCommunityIcons name="alarm-light-outline" color={color} size={size} />
                         ),
                     }}
-                />
-                <Tab.Screen
-                    name="Detalhes"
-                    component={Detalhes}
-                    options={{
-                        tabBarIcon: ({ color, size }) => (
-                            <MaterialCommunityIcons name="account-details" color={color} size={size} />
-                        ),
-                    }}
-                /> 
-                <Tab.Screen
-                name="Observacao"
-                component={Observacao}
-                options={{
-                    tabBarIcon: ({ color, size }) => (
-                        <MaterialCommunityIcons name="plus-box" color={color} size={size} />
-                    ),
-                }}
-                />
-                             
+                />         
 
             </Tab.Navigator>
         </NavigationContainer>
